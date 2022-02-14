@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasUuid;
+use App\Traits\UserPermission;
+use App\Traits\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\HasName;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\HasName;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +16,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use Notifiable;
+    // use TwoFactorAuthenticatable;
+    use HasUuid;
+    use UserPermission;
+    // use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
