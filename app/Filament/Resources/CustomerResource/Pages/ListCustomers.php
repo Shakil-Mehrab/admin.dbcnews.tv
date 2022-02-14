@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\CustomerResource\Pages;
 
-use App\Filament\Resources\CustomerResource;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\CustomerResource;
 
 class ListCustomers extends ListRecords
 {

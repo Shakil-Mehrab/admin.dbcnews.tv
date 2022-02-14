@@ -8,9 +8,9 @@ use App\Models\Customer;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
-use Illuminate\Database\Eloquent\Builder;
 
 class CustomerResource extends Resource
 {
@@ -24,7 +24,9 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
-            Forms\Components\TextInput::make('email')->email()->required(),
+                // Forms\Components\TextInput::make('slug')->email()->required(),
+                Forms\Components\TextInput::make('phone')->required(),
+                Forms\Components\TextInput::make('email')->email()->required(),
             ]);
     }
 
@@ -33,11 +35,13 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([
-                Tables\Filters\Filter::make('verified')
-                ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
+                Tables\Filters\Filter::make('name')
+                ->query(fn (Builder $query): Builder => $query->where('name', 'like', '%' . request('name') . '%')),
             ]);
     }
 
