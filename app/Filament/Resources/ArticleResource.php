@@ -13,6 +13,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\CheckboxList;
 use App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource\RelationManagers;
@@ -61,10 +62,17 @@ class ArticleResource extends Resource
                 ->uploadProgressIndicatorPosition('left')
                 ->multiple()
                 ->minFiles(2)
-                ->maxFiles(5)
+                ->maxFiles(5),
                 // protected $casts = [
                 //     'attachments' => 'array',
                 // ];
+                MultiSelect::make('technologies')
+                ->options([
+                    'tailwind' => 'TailwindCSS',
+                    'alpine' => 'Alpine.js',
+                    'laravel' => 'Laravel',
+                    'livewire' => 'Laravel Livewire',
+                ])
             ]);
     }
 
